@@ -13,6 +13,13 @@ class BaseModel:
         Args:
             self (BaseModel): the current instance
         """
+        # public instance attributes
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
+        self.updated_at = datetime.today()
+
+    # public instance methods
+    def save(self):
+        """Updates the public instance attribute updated_at \
+            with the current datetime"""
         self.updated_at = datetime.today()
