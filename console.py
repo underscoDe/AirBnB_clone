@@ -11,8 +11,15 @@ class HBNBCommand(cmd.Cmd):
     Attr:
         custom_prompt (str): command line prompt
     """
-    custom_prompt = "(hbnb)"
+    prompt = "(hbnb)"
 
     def emptyline(self):
         """Ignore empty lines + ENTER."""
         pass
+
+    def do_exit(self, arg):
+        """Command to exit the program."""
+        return True
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
