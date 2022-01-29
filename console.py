@@ -21,5 +21,12 @@ class HBNBCommand(cmd.Cmd):
         """Command to exit the program."""
         return True
 
+    def do_EOF(self, arg):
+        """EOF signal to exit the program."""
+        # Go to a new line and before exiting
+        print("")
+        self.do_exit()
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
