@@ -1,7 +1,31 @@
 #!usr/bin/python3
 """Contains the entry point of the command interpreter."""
 import cmd
+import re
+from shlex import split
 from models.user import User
+
+def parse(arg):
+    """
+    Method written to take and parse input before use
+    """
+    curly_braces = re.search(r"\{(.*?)\}", arg)
+    brackets = re.search(r"\[(.*?)\]", arg)
+    if curly_braces is None:
+        if brackets is None:
+            return [i.strip(",") for i in split(arg)]
+        else:
+            lexer = split(arg[:brackets.span()[0]])
+            rtl = [i.strip() for i in lexer]
+            rtl.append(brackets.group())
+            return rtl
+    else:
+        lexer = split(arg[:curly_braces.span()[0]])
+        rtl = [i.strip() for i in lexer]
+        rtl.append(curly_braces.group())
+        return rtl
+
+
 
 class HBNBCommand(cmd.Cmd):
     """HBnB Console.
@@ -12,7 +36,10 @@ class HBNBCommand(cmd.Cmd):
         custom_prompt (str): command line prompt
     """
     prompt = "(hbnb) "
-
+    __classes = {
+        "BaseModel",
+        "User"
+    }
     def emptyline(self):
         """Ignore empty lines + ENTER."""
         pass
@@ -30,6 +57,12 @@ class HBNBCommand(cmd.Cmd):
         # Go to a new line and before exiting
         print("")
         self.do_exit()
+
+    def do_create(self, arg):
+        """
+        Create instance of class
+        """
+        args = parse(arg)
 
 
 if __name__ == '__main__':
