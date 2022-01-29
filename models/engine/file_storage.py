@@ -21,4 +21,7 @@ class FileStorage:
         """Returns the dictionary __objects"""
         return (FileStorage.__objects)
 
+    def new(self, obj):
+        """Sets in __objects the obj with key <obj class name>.id"""
+        FileStorage.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
