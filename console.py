@@ -14,4 +14,5 @@ class HBNBCommand(cmd.Cmd):
     custom_prompt = "(hbnb)"
 
     def emptyline(self):
+        """Ignore empty lines + ENTER."""
         pass
