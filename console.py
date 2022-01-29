@@ -11,7 +11,7 @@ class HBNBCommand(cmd.Cmd):
     Attr:
         custom_prompt (str): command line prompt
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def emptyline(self):
         """Ignore empty lines + ENTER."""
