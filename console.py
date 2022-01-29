@@ -1,7 +1,7 @@
 #!usr/bin/python3
 """Contains the entry point of the command interpreter."""
 import cmd
-
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """HBnB Console.
