@@ -1,6 +1,7 @@
 #!usr/bin/python3
 """Definition of the BaseModel class."""
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -28,7 +29,9 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file"""
         objects_copy = FileStorage.__objects
-        objects_dict = {obj: objects_copy[obj].to_dict() for obj in objects_copy.keys()}
+        objects_dict = {
+            obj: objects_copy[obj].to_dict() for obj in objects_copy.keys()
+        }
 
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objects_dict, f)
