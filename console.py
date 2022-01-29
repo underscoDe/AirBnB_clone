@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """Contains the entry point of the command interpreter."""
 import cmd
 
