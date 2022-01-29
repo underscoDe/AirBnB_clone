@@ -32,3 +32,16 @@ class FileStorage:
 
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objects_dict, f)
+
+    def reload(self):
+        """Deserializes the JSON file to __objects \
+            or do nothing whether the JSON file exists or not."""
+        try:
+            with open(FileStorage.__file_path, "r") as f:
+                objects_dict = json.load(f)
+                for obj in objects_dict.values():
+                    class_name = obj["__class__"]
+                    del obj["__class__"]
+                    self.new(eval(class_name)(**obj))
+        except FileNotFoundError:
+            return
