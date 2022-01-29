@@ -23,3 +23,13 @@ class BaseModel:
         """Updates the public instance attribute updated_at \
             with the current datetime"""
         self.updated_at = datetime.today()
+
+    def to_dict(self):
+        """Returns a dictionary containing all \
+            keys/values of __dict__ of the instance"""
+        dict_copy = __dict__.copy()
+        dict_copy["created_at"] = self.created_at.isoformat()
+        dict_copy["updated_at"] = self.updated_at.isoformat()
+        dict_copy["__class__"] = self.__class__.__name__
+
+        return (dict_copy)
