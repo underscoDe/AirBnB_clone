@@ -92,7 +92,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(objdict["{}.{}".format(args[0], args[1])])
 
-
     def do_destroy(self, arg):
         """
         destroy <class>  <id>
@@ -111,6 +110,24 @@ class HBNBCommand(cmd.Cmd):
         else:
             del objdict["{}.{}".format(args[0], args[1])]
             storage.save()
+
+    def do_all(self, arg):
+        """
+        usage; all <class> or <class>.all()
+        Display all instances of a given class
+        """
+        args = parse(arg)
+        if len(args) > 0 and args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        else:
+            objs = [];
+            for obj in storage.all().values():
+                if len(args) > 0 and args[0] == obj.__class__.__name__:
+                    objs.append(obj.__str__())
+                elif len(args) == 0:
+                    objs.append(obj.__str__())
+            print(objs)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
