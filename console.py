@@ -76,7 +76,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Show class + id
+    show <class>  <id>
+    Display string representation of the class instance
         """
         args = parse(arg)
         objdict = storage.all()
@@ -91,6 +92,25 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(objdict["{}.{}".format(args[0], args[1])])
 
+
+    def do_destroy(self, arg):
+        """
+        destroy <class>  <id>
+        delete a class instance of a given id
+        """
+        args = parse(arg)
+        objdict = storage.all()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id doesn't exist **")
+        elif "{}.{}".format(args[0], args[1]) not in objdict:
+            print("** no instance found **")
+        else:
+            del objdict["{}.{}".format(args[0], args[1])]
+            storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
