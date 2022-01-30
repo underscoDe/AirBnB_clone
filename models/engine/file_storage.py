@@ -2,7 +2,7 @@
 """Definition of the BaseModel class."""
 import json
 from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage:
     """Serializes instances to a JSON file \
