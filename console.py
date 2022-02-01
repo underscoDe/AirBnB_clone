@@ -6,6 +6,7 @@ from shlex import split
 
 from models import storage
 from models.user import User
+from models.base_model import BaseModel
 
 
 def parse(arg):
@@ -67,9 +68,9 @@ class HBNBCommand(cmd.Cmd):
         """
         args = parse(arg)
         if len(args) == 0:
-            print("** Class name  missing **")
+            print("** class name  missing **")
         elif args[0] not in HBNBCommand.__classes:
-            print("** Class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             print(eval(args[0])().id)
             storage.save()
@@ -82,11 +83,11 @@ class HBNBCommand(cmd.Cmd):
         args = parse(arg)
         objdict = storage.all()
         if len(args) == 0:
-            print("** Class name missing **")
+            print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
-            print("** Class doesn't exist**")
+            print("** class doesn't exist**")
         elif len(args) == 1:
-            print("** instance id doesn't exist **")
+            print("** instance id missing **")
         elif "{}.{}".format(args[0], args[1]) not in objdict:
             print("** no instance found **")
         else:
