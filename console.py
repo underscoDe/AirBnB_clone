@@ -76,8 +76,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-    show <class>  <id>
-    Display string representation of the class instance
+        show <class>  <id>
+        Display string representation of the class instance
         """
         args = parse(arg)
         objdict = storage.all()
@@ -128,11 +128,11 @@ class HBNBCommand(cmd.Cmd):
                     objs.append(obj.__str__())
             print(objs)
 
-
     def do_update(self, arg):
         """
         usage: update <class> <id>
-        Update a class instance of a given id by adding or updating a given attribute
+        Update a class instance of a given id by adding \
+            or updating a given attribute
         """
         args = parse(arg)
         objdict = storage.all()
@@ -168,7 +168,9 @@ class HBNBCommand(cmd.Cmd):
         elif type(eval(args[2])) == dict:
             obj = objdict["{}.{}".format(args[0], args[1])]
             for k, v in eval(args[2]).items():
-                if (k in obj.__class__.__dict__.keys() and type(obj.__class__.__dict__[k]) in {str, int, float}):
+                k_in_keys = k in obj.__class__.__dict__.keys()
+                type_in = type(obj.__class__.__dict__[k]) in {str, int, float}
+                if (k_in_keys and type_in):
                     valtype = type(obj.__class__.__dict__[k])
                     obj.__dict__[k] = valtype(v)
                 else:
