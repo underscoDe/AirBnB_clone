@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """Contains the entry point of the command interpreter."""
 import cmd
 import re
@@ -6,6 +6,7 @@ from shlex import split
 
 from models import storage
 from models.user import User
+from models.base_model import BaseModel
 
 
 def parse(arg):
@@ -67,17 +68,17 @@ class HBNBCommand(cmd.Cmd):
         """
         args = parse(arg)
         if len(args) == 0:
-            print("** Class name  missing **")
+            print("** class name  missing **")
         elif args[0] not in HBNBCommand.__classes:
-            print("** Class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             print(eval(args[0])().id)
             storage.save()
 
     def do_show(self, arg):
         """
-    show <class>  <id>
-    Display string representation of the class instance
+        show <class>  <id>
+        Display string representation of the class instance
         """
         args = parse(arg)
         objdict = storage.all()
@@ -85,6 +86,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+
         elif len(args) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(args[0], args[1]) not in objdict:
@@ -128,11 +130,11 @@ class HBNBCommand(cmd.Cmd):
                     objs.append(obj.__str__())
             print(objs)
 
-
     def do_update(self, arg):
         """
         usage: update <class> <id>
-        Update a class instance of a given id by adding or updating a given attribute
+        Update a class instance of a given id by adding \
+            or updating a given attribute
         """
         args = parse(arg)
         objdict = storage.all()
@@ -168,7 +170,9 @@ class HBNBCommand(cmd.Cmd):
         elif type(eval(args[2])) == dict:
             obj = objdict["{}.{}".format(args[0], args[1])]
             for k, v in eval(args[2]).items():
-                if (k in obj.__class__.__dict__.keys() and type(obj.__class__.__dict__[k]) in {str, int, float}):
+                k_in_keys = k in obj.__class__.__dict__.keys()
+                type_in = type(obj.__class__.__dict__[k]) in {str, int, float}
+                if (k_in_keys and type_in):
                     valtype = type(obj.__class__.__dict__[k])
                     obj.__dict__[k] = valtype(v)
                 else:
