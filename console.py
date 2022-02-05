@@ -6,7 +6,14 @@ from shlex import split
 
 from models import storage
 from models.user import User
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.amenity import Amenity
+from models.review import Review
+
 from models.base_model import BaseModel
+
 
 
 def parse(arg):
@@ -41,7 +48,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes = {
         "BaseModel",
-        "User"
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
     }
 
     def emptyline(self):
