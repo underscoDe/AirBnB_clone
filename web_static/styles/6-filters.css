@@ -44,12 +44,6 @@
   border-right: 1px solid #ddd;
 }
 
-/* Locations and amenities hover opacity */
-.filters .locations:hover,
-.filters .amenities:hover {
-  background-color: #fafafa;
-}
-
 /* Locations and amenities popover menu */
 .filters .popover {
   background-color: #fafafa;
