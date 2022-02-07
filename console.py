@@ -6,7 +6,14 @@ from shlex import split
 
 from models import storage
 from models.user import User
+from models.city import City
+from models.place import Place
+from models.state import State
+from models.amenity import Amenity
+from models.review import Review
+
 from models.base_model import BaseModel
+
 
 
 def parse(arg):
@@ -41,7 +48,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes = {
         "BaseModel",
-        "User"
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
     }
 
     def emptyline(self):
@@ -85,7 +97,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
-            print("** class doesn't exist**")
+            print("** class doesn't exist **")
+
         elif len(args) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(args[0], args[1]) not in objdict:
@@ -145,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return False
         elif len(args) == 1:
-            print("** instance id doesn't exist **")
+            print("** instance id missing **")
             return False
         elif "{}.{}".format(args[0], args[1]) not in objdict:
             print("** no instance found **")
